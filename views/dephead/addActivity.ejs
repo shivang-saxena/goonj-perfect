@@ -1,0 +1,233 @@
+<%- include('../includes/head.ejs') %>
+</head>
+  <body>
+    <%- include('../includes/sidebar.ejs')%>
+    <div class="page">
+        <%- include('../includes/navbar.ejs')%> 
+      <!-- Breadcrumb-->
+      <div class="breadcrumb-holder">
+        <div class="container-fluid">
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Forms       </li>
+          </ul>
+        </div>
+      </div>
+      
+      <section class="forms">
+        <div class="container-fluid">
+          <!-- Page Header-->
+          <header> 
+            <h1 class="h3 display text-center"><strong><%= date.toDateString() %></strong></h1>
+          </header>
+          <div class="row">
+            <!-- <p> <%= JSON.stringify(activityRecords) %></p> -->
+              <div class="col-lg-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4>Todays Added User Data</h4>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead>
+                            
+                            <tr>
+                              <th>#</th>
+                              <th>user ID</th>
+                              <th>Activity Name</th>
+                              <th>working hours</th>
+                              <th>Products</th>
+                              <th>Date</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                              <% if(activityRecords.length>0) { %>
+                                <% for(var i=0; i<activityRecords.length;i++) { %>
+                                  
+                                    <tr>
+                                        <th scope="row"><%= i+1%></th>
+                                        <td><%= activityRecords[i].empId %></td>
+                                        <td><%= activityRecords[i].activityType.activityName %></td>
+                                        <td><%= activityRecords[i].timeTaken %></td>
+                                        <td><%= activityRecords[i].productseach %></td>
+                                        <td><%=  activityRecords[i].created_at  %></td>
+                                        
+                                        <!-- <th scope="row">Done</th> -->
+                                      </tr>
+                                  
+                                <% } } else {%>
+                                 <tr>No data</tr>
+                                <% }%>  
+                            
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-header d-flex align-items-center " style="justify-content: space-between;">
+                  <h4>Add today user data</h4>
+                  <button class="mr-3 btn btn-primary"  data-toggle="modal" data-target="#myModal">New Employee</button>
+                </div>
+                <div class="card-body">
+                  <form class="form-inline" action="/dephead/addActivity" method="POST">
+                    <div class="form-group">
+                      <select class="form-control"  name="workers">
+                          <option value="">select workers</option>
+                          <% if(employees.length>0) { %>
+                            <% for(var i=0; i<employees.length;i++) { %>
+                              
+                              <option value="<%= employees[i].id %>"><%= employees[i].name  %></option>
+                              
+                            <% } } else {%>
+                              <option value="null">No data</option>
+                            <% }%>  
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <select class="form-control" name="activityType">
+                          <option value="">select Activity</option>
+                                      <% if(activities.length>0) { %>
+                                        <% for(var i=0; i<activities.length;i++) { %>
+                                          
+                                          <option value="<%= activities[i]._id %>"><%= activities[i].activityName  %></option>
+                                          
+                                          
+                                        <% } } else {%>
+                                          <option value="null">No data</option>
+                                        <% }%>  
+                        </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="inlineFormInputGroup" class="sr-only">Working Hours</label>
+                      <input id="inlineFormInputGroup" name="workinghour" type="Number" placeholder="Insert working hours" class="mr-3 form-control form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="inlineFormInputGroup" class="sr-only">Products Made</label>
+                        <input id="inlineFormInputGroup" name="productsMade" type="Number" placeholder="Total Number of products made by individual" class="mr-3 form-control form-control">
+                      </div>
+                    <div class="form-group">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                      <input type="submit" value="Submit" class="mr-3 btn btn-primary">
+                    </div>
+                  </form>
+                </div>
+                <div class="card-header d-flex align-items-center ">
+                  <h4>Add Group Data</h4>
+                  
+                </div>
+                <div class="card-body">
+                  <form class="form-inline" action="/dephead/addGroupData" method="POST">
+                    <div class="form-group">
+                      <select class="form-control"  name="workers">
+                          <option value="">Select Group</option>
+                          <% if(employees.length>0) { %>
+                            <% for(var i=0; i<employees.length;i++) { %>
+                              
+                              <option value="<%= employees[i].id %>"><%= employees[i].name %></option>
+                              
+                            <% } } else {%>
+                              <option value="null">No data</option>
+                            <% }%>  
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="inlineFormInputGroup" class="sr-only">GroupStrength</label>
+                      <input id="inlineFormInputGroup" name="no" type="Number" placeholder="No of workers" class="mr-3 form-control form-control">
+                    </div>  
+                    <div class="form-group">
+                      <select class="form-control" name="activityType">
+                          <option value="">select Activity</option>
+                                      <% if(activities.length>0) { %>
+                                        <% for(var i=0; i<activities.length;i++) { %>
+                                          
+                                          <option value="<%= activities[i]._id %>"><%= activities[i].activityName %></option>
+                                          
+                                        <% } } else {%>
+                                          <option value="null">No data</option>
+                                        <% }%>  
+                        </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="inlineFormInputGroup" class="sr-only">Working Hours</label>
+                      <input id="inlineFormInputGroup" name="workinghour" type="Number" placeholder="Insert working hours" class="mr-3 form-control form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="inlineFormInputGroup" class="sr-only">Products Made</label>
+                        <input id="inlineFormInputGroup" name="productsMade" type="Number" placeholder="Total Number of products made by individual" class="mr-3 form-control form-control">
+                      </div>
+                      
+                    <div class="form-group">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                      <input type="submit" value="Submit" class="mr-3 btn btn-primary">
+                    </div>
+                  </form>
+                </div>
+               
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+      <div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+        <div role="document" class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 id="exampleModalLabel" class="modal-title">New Employee Registration</h5>
+              <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body" id="ajaxAddNewEmployee">
+                  <div class="form-group">
+                      <label>User Id</label>
+                      <input type="text" placeholder="Enter User ID" class="form-control"  name="employeeId"  id="employeeId">
+                    </div>
+                <div class="form-group">
+                  <label>Employee Name</label>
+                  <input type="text" placeholder="Enter Employee name" class="form-control"  name="employeeName" id="employeeName">
+                </div>
+                <div class="form-group">       
+                  <label>Phone</label>
+                  <input type="number" placeholder="Enter phone Number" class="form-control"  name="phone" id="phone">
+                </div>
+                <!-- <div class="modal-footer"> -->
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" id="csrfToken">
+                    <button type="button" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="ajaxAddEmployee(this)">Add Employee</button>
+                  <!-- </div> -->
+                </div>
+            </div>
+            
+        </div>
+      </div>
+
+      <div id="currentData" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+          <div role="document" class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 id="exampleModalLabel" class="modal-title">Generate Today's Efficiency!</h5>
+                <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+              </div>
+              <div class="modal-body">
+                <form  class="form-inline" action="/dephead/viewActivity" method="POST">
+                    
+                    
+                      <input type="hidden" name="_csrf" value="<%= csrfToken %>" id="csrfToken">
+                      <button type="submit" class="btn btn-primary"  name="groupproduct">Click</button>
+                   
+                  </form>
+                  </div>
+              </div>
+              
+          </div>
+        </div>
+          
+<%- include('../includes/end.ejs') %>

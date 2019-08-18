@@ -1,0 +1,65 @@
+<%- include('../includes/head.ejs') %>
+</head>
+  <body>
+    <%- include('../includes/sidebar.ejs')%>
+    <div class="page">
+        <!-- navbar-->
+        <header class="header">
+          <%- include('../includes/navbar.ejs')%>
+        </header>
+        <!-- Counts Section -->
+        <section class="dashboard-counts section-padding">
+          <div class="container-fluid">
+             <section class="row">
+                <div class="card" style="width:100%">
+                    <div class="card-header">
+                      Employee Data
+                      <button class="btn btn-success" style="float:right" data-toggle="modal" data-target="#exampleModal">Add Employee</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                              <thead>
+                                  <tr>
+                                      <th class="text-center">#</th>
+                                      <th>ID</th>
+                                      <th>Name</th>
+                                      <th>Phone</th>
+                                       <th>Location</th>
+
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                     <% if(data.length>0) { %>
+                                         <% for(var i=0; i<data.length;i++) { %>
+                                           
+                                                 <tr>
+                                                         <td class="text-center"> <%= i+1 %></td>
+                                                         <td> <a href="dephead/viewEmployee:<%= data[i]._id %>"><%= data[i].id %></a></td>
+                                                         <td><%= data[i].name %></td>
+                                                         <td><%= data[i].phone %></td>
+                                                         <td><%= data[i].city %></td>
+                                                         <td><%= data[i].gender %></td>
+                                                 </tr>
+                                           
+                                         <% } } else {%>
+                                            <tr> <td class="text-center">No Record</td></tr>
+                                         <% }%>
+                              </tbody>
+                          </table>
+                          </div>  
+                  </div></div>
+          </section>
+      </div>
+    </div>
+  </section>
+  <!-- Header Section-->
+  
+  <!-- Statistics Section-->
+
+<%- include('../includes/end.ejs')%> 
+
+
+    
+  
+ 

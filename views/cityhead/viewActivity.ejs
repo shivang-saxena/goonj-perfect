@@ -1,0 +1,90 @@
+<%- include('../includes/head.ejs') %>
+
+</head>
+
+<body>
+    <div class="page-wrapper chiller-theme toggled">
+  <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+    <i class=" fa fa-bars"></i>
+  </a>
+  <%- include('../includes/sidebar.ejs') %>
+  <!-- sidebar-wrapper  -->
+<style>
+
+</style>
+  <main class="page-content">
+      <%- include('../includes/navbar.ejs') %>
+      <div class="container-fluid">
+        <p>
+          <!-- <%= JSON.stringify(data) %> -->
+        </p>
+             <section class="row">
+                <div class="card" style="width:100%">
+                    <div class="card-header">
+                      Activity Data
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table class="table">
+                          <thead>
+                              <tr>
+                                  <th class="text-center">#</th>
+                                  <th>Activity Name</th>
+                                  <th>Dept Head</th>
+                                  <th>Products Made</th>
+                                  <th>Manpower</th>
+                                  
+                                  <!-- <th>Time Taken</th> -->
+                                  <th>Worker Efficiency <br>
+                                  (Product made by one worker )
+                                  </th>
+                                  <th> Product rate ( per Hour)</th>
+                                 
+
+                              </tr>
+                          </thead>
+                          <tbody>
+                           
+                                 <% if(data.length>0) { %>
+                                  <tr>
+                                      <h5  class="text-center"><span class="badge badge-success">23 FEB  2019</span></h5>
+                                   </tr>
+                                     <% for(var i=0; i<data.length;i++) { %>
+                                       
+                                             <tr>
+                                                     <td class="text-center"> <%= i+1 %></td>
+                                                     <td> <a href="/dephead/viewActivity:<%= data[i]._id %>"><%= data[i].activityType.activityName %></a></td>
+                                                          <% if(data[i].submittedBy!= null){ %>
+                                                     <td><%= data[i].submittedBy.name %></td>
+                                                     <% }else{ %>
+                                                      <td>Nodep head</td>
+                                                      <% } %>
+                                                      <td><%= data[i].productsMade %></td>  
+
+                                                     <td><%= data[i].manpower %></td>  
+                                                    
+                                                     <td><%=  data[i].workerefficiency %></td>
+                                                     <td><%= data[i].productefficiency  %> /  hour </td>
+
+                                             </tr>
+                                             
+                                       
+                                     <% } } else {%>
+                                        <tr> <td class="text-center">No Record</td></tr>
+                                     <% }%>
+                                     
+                          </tbody>
+                      </table>
+                      </div>
+                    </div>
+                  </div>
+          </section>
+      </div>
+          
+          
+        
+        </main>
+  <!-- page-content" -->
+</div>
+<!-- page-wrapper -->
+<%- include('../includes/end.ejs') %>

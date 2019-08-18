@@ -1,0 +1,115 @@
+<%- include('../includes/head.ejs') %>
+</head>
+  <body>
+    <%- include('../includes/sidebar.ejs')%>
+    <div class="page">
+        <!-- navbar-->
+        <%- include('../includes/navbar.ejs')%>
+        <!-- Counts Section -->
+        <section class="dashboard-counts section-padding">
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="card" style="width:100%">
+            <div class="card-header">
+              <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+               Filter Records
+              </a>
+            </div>
+           
+              <div class="collapse" id="collapseExample">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4" id="filterActivity">
+                      <h5><strong>Activity</strong></h5>
+                      <% if(activities.length>0) { %>
+                        <% for(var i=0; i<activities.length;i++) { %>
+                          
+                          <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="<%= activities[i]._id %>" id="defaultCheck1">
+                        <label class="form-check-label" for="defaultCheck1">
+                            <%= activities[i].activityName %>
+                        </label>
+                      </div>
+                          
+                        <% } } else {%>
+                          <option value="null">No data</option>
+                        <% }%>
+                     
+                      
+                    </div>
+                    <div class="col-md-4" id="filterLocation">
+                        <h5><strong>Location</strong></h5>
+                        <% if(cities.length>0) { %>
+                          <% for(var i=0; i<cities.length;i++) { %>
+                            
+                            <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="<%= cities[i]._id %>" id="defaultCheck1">
+                          <label class="form-check-label" for="defaultCheck1">
+                              <%= cities[i].city %>
+                          </label>
+                        </div>
+                            
+                          <% } } else {%>
+                            <option value="null">No data</option>
+                          <% }%>
+                      
+                    </div>
+                    <div class="col-md-4" id="filterDate">
+                      <h5><strong>Date</strong></h5>
+                        <div class="form-group" >
+                            <label for="exampleFormControlTextarea1">From</label>
+                            <input class="form-control" type="date" id="myDate"  name="date" placeholder='YYYY-MM-DD' pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))">
+                          </div> 
+                          <div class="form-group" required>
+                              <label for="exampleFormControlTextarea1">To</label>
+                              <input class="form-control" type="date" id="myDate"  name="date" placeholder='YYYY-MM-DD' pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))">
+                            </div> 
+                    </div>
+
+                  </div>
+                </div>
+                <div class="card-footer text-center">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>" id="csrfToken">
+                    <button class="btn btn-default" onclick="filterRecords()">Apply filter</button>
+                  </div>
+              </div>
+              
+          </div>
+        </div>
+
+        <!-- Records -->
+        <div class="row">
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Activity Name</th>
+                    <th scope="col">Manpower</th>
+                    <th scope="col">Products Made</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Submitted By</th>
+                    <th scope="col">Time</th>
+                  </tr>
+                </thead>
+                <tbody id="productivityRecords">
+                  
+                  <tr class="table-info">
+                      <td class="text-center" colspan="5"><strong>23 December</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+              
+            
+        </div>
+      </div>
+    </section>
+    </div>
+ 
+    <script>
+        $(document).ready(function(){
+          filterRecords();
+        });
+        </script>
+
+
+    <%- include('../includes/end.ejs') %>

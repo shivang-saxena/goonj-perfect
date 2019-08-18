@@ -1,0 +1,129 @@
+<%- include('../includes/head.ejs') %>
+</head>
+  <body>
+    <%- include('../includes/sidebar.ejs')%>
+    <div class="page">
+        <!-- navbar-->
+        <header class="header">
+          <%- include('../includes/navbar.ejs')%>
+        </header>
+        <!-- Counts Section -->
+        <section class="dashboard-counts section-padding">
+          <div class="container-fluid">
+      <div class="row">
+            <div class="col-md-6">
+              <div class="card-header">
+                <span style="font-weight:bold;font-size:20px">Manage city</span>
+                <a  data-toggle="collapse" href="#actionAddCity" role="button" aria-expanded="false" aria-controls="actionAddCity" style="float: right">Add new City <i class="fa fa-plus" aria-hidden="true"></i></a>
+              </div>
+              <div class="collapse form-inline card-body" id="actionAddCity">
+                                                   
+                <label class="sr-only" for="addCityInput">City Name</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="addCityInput" placeholder="Enter new city Name">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button  class="btn btn-primary mb-2" onclick="addCity(this)">Add</button>
+ 
+               </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">cityname</th>
+                              <th scope="col">action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                                <% if(cities.length>0) { %>
+                                    <% for(var i=0; i<cities.length;i++) { %>
+                                      
+                                            <tr>
+                                                    <th scope="row"><%= i+1 %></th>
+                                                    <td><%= cities[i].city %></td>
+                                                    <td>
+                                                        <input type="hidden" name="_id" value="<%= cities[i]._id%>">
+                                                      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                                          <a  data-toggle="collapse" href="#action<%= i %>" role="button" aria-expanded="false" aria-controls="action<%= i %>" onclick="$('#action<%= i %> #updateCityInput').val('<%= cities[i].city %>');"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                          <a role="button" onclick="deleteCity(this)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                         
+                
+                                                        </td>
+                                                  </tr>
+                                                  <tr><td colspan="3">
+                                                     <div class="collapse form-inline" id="action<%= i %>">
+                                                                
+                                                                <input type="text" class="form-control mb-2 mr-sm-2" id="updateCityInput" >
+                                                                <input type="hidden" name="_id" value="<%= cities[i]._id%>">
+                                                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                                                <button  class="btn btn-primary mb-2"onclick="updateCity(this)">Update</button>
+                                                 
+                                                 </div></td></tr>
+                                      
+                                    <% } } else {%>
+                                      <tr><td>No data</td></tr>
+                                    <% }%>
+                           
+                          </tbody>
+                    </table>
+                  </div>
+            </div>
+            <div class="col-md-6">
+                        <div class="card-header">
+                            <span style="font-weight:bold;font-size:20px">Manage Activity</span>
+                            <a  data-toggle="collapse" href="#actionAddActivity" role="button" aria-expanded="false" aria-controls="actionAddActivity" style="float: right">Add new Activity <i class="fa fa-plus" aria-hidden="true"></i></a>
+                          <div class="collapse card-body" id="actionAddActivity">
+                              <div class="form-group">
+                                  <input type="text" name="" id="" class="form-control">
+                                </div>
+                              <div class="form-group">
+                                  <textarea name="" id="" class="form-control"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-default">Add</button>
+                                  </div>
+                                  
+             
+                           </div>
+                            
+                          </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                          <th scope="col">#</th>
+                                          <th scope="col">activity name</th>
+                                          <th scope="col">action</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                            <% if(activities.length>0) { %>
+                                                <% for(var i=0; i<activities.length;i++) { %>
+                                                  
+                                                        <tr>
+                                                                <th scope="row"><%= i+1 %></th>
+                                                                <td><%= activities[i].activityName %></td>
+                                                                <td>
+                                                                    <input type="hidden" name="<%= activities[i]._id%>">
+                                                                      <a href="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                                      <a href="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                                      <a href="#" onclick="addActivity()"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                                                                 </td>
+                                                              </tr>
+                                                  
+                                                <% } } else {%>
+                                                  <tr><td>No data</td></tr>
+                                                <% }%>
+                                      </tbody>
+                                </table>
+                              </div>  
+            </div>
+
+          </div>
+        </div>
+      </section>
+      <!-- Header Section-->
+      
+      <!-- Statistics Section-->
+      
+    </div>
+    <%- include('../includes/end.ejs')%> 

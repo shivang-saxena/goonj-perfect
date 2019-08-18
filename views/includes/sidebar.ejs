@@ -1,0 +1,116 @@
+<!-- Side Navbar -->
+<nav class="side-navbar">
+    <div class="side-navbar-wrapper">
+      <!-- Sidebar Header    -->
+      <div class="sidenav-header d-flex align-items-center justify-content-center">
+        <!-- User Info-->
+        <div class="sidenav-header-inner text-center"><img src="https://cdn1.iconfinder.com/data/icons/user-pictures/101/malecostume-512.png" alt="person" class="img-fluid rounded-circle">
+          <h2 class="h5"><%= userinfo.name %></h2><span>Administrator</span>
+        </div>
+        <!-- Small Brand infosrmation, appears on minimized sidebar-->
+        <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>B</strong><strong class="text-primary">D</strong></a></div>
+      </div>
+      <!-- Sidebar Navigation Menus-->
+      <% if(role == 1) {%>
+            <div class="main-menu">
+              <h5 class="sidenav-heading">Main</h5>
+              <ul id="side-main-menu" class="side-menu list-unstyled">                  
+                <li class="sidebar active">
+                        <a href="/orghead/index">
+                          <i class="fab fa-blogger-b"></i>
+                          <span>Dashboard</span>
+                          
+                        </a>
+                        </li>
+                      <li class="sidebar">
+                        <a href="/orghead/productivity">
+                          <i class=" fa fa-exclamation-circle"></i>
+                          <span>View Reports</span>
+                        </a>
+                        
+                      </li>
+                      <li class="sidebar">
+                        <a href="/orghead/manageData">
+                          <i class=" fa fa-question-circle"></i>
+                          <span>Manage data</span>
+                        </a>
+                        
+                      </li>
+                  
+                </ul>
+              </div>
+      <% } else if (role ==2) { %>
+        <div class="main-menu">
+            <h5 class="sidenav-heading">Main</h5>
+            <ul id="side-main-menu" class="side-menu list-unstyled">                  
+                <li class="header-menu">
+                    <span>Cityhead User</span>
+                  </li>
+                  <li class="sidebar active">
+                    <a href="/cityhead/index">
+                      <i class="fab fa-blogger-b"></i>
+                      <span>Dashboard</span>
+                      
+                    </a>
+                    </li>
+                    <li class="sidebar">
+                      <a href="/cityhead/productivity">
+                        <i class=" fa fa-exclamation-circle"></i>
+                        <span>Productivity</span>
+                      </a>
+                      
+                    </li>
+            </ul>
+          </div>
+      <% } else {%>
+        <div class="main-menu">
+            <h5 class="sidenav-heading">Main</h5>
+            <ul id="side-main-menu" class="side-menu list-unstyled">                  
+                  <li class="sidebar">
+                    <a href="/dephead/addActivity">
+                      <i class=" fa fa-child"></i>
+                      <span>Add New data</span>
+                   
+                    </a>
+                    <div class="sidebar-submenu">
+                      
+                    </div>
+                  </li>
+                  <li class="sidebar">
+                    <a href="/dephead/viewActivity">
+                      <i class=" fa fa-exclamation-circle"></i>
+                      <span>View Data</span>
+                    </a>
+                    
+                  </li>
+                  <li class="sidebar">
+                    <a href="/dephead/viewEmployee">
+                      <i class=" fa fa-question-circle"></i>
+                      <span>Manage Employee</span>
+                    </a>
+                    
+                  </li>
+
+                  <li class="sidebar"   data-toggle="modal" data-target="#currentData">
+                      <a href="#">
+                        <i class=" fa fa-question-circle"></i>
+                        <span>Calculate Efficiency</span>
+                      </a>
+                      
+                    </li>
+                  
+                  <!-- <li class="sidebar">
+                      <a href="/dephead/viewEmployee">
+                        <i class=" fa fa-question-circle"></i>
+                        <span>Employee</span>
+                      </a>
+                      
+                    </li> -->
+            </ul>
+          </div>
+              <% }%>
+     
+      
+    </div>
+  </nav>
+  

@@ -1,0 +1,103 @@
+<%- include('../includes/head.ejs') %>
+</head>
+
+<body>
+  <div class="wrapper ">
+    <%- include('../includes/sidebar.ejs') %>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <%- include('../includes/navbar.ejs') %>
+      <!-- End Navbar -->
+      <div class="content">
+        <div class="container-fluid">
+          <div class="col-md-12">
+            <p>
+                <!-- <%- JSON.stringify(data) %> -->
+            </p>
+          </div>
+            <div class="row">
+                <div class="col-md-12">
+                 <div class="card">
+                     <div class="card-header card-header-primary">
+                       <h4 class="card-title">Add New Activity</h4>
+                     </div>
+                     <div class="card-body" >
+                        <% if(data.length>0) { %>
+                         <form action="/dephead/addActivity" method="POST">
+                             <div class="form-group">
+                                 <label for="exampleFormControlSelect1">Choose Activity Type</label>
+                                 <select class="form-control " data-style="btn btn-link" id="exampleFormControlSelect1" name="activityType">
+                                    <% for(var i=0; i<data[0].length;i++) { %>
+                            
+                                        <option value="<%= data[0][i]._id %>"><%= data[0][i].activityName %></option>
+                                      
+                                    <% } %>
+                                 </select>
+                               </div>
+                               <div class="form-group">
+                                 <label for="exampleFormControlSelect1">Choose Manpower</label>
+                                 <select class="form-control " data-style="btn btn-link" id="exampleFormControlSelect1" name="manpower">
+                                    <% for(var i=1; i<=10;i++) { %>
+                                      <option value="<%= i %>"><%= i %></option>
+                                    <% } %>
+                                 </select>
+                               </div>
+                               <div class="form-group">
+                                 <label for="exampleFormControlSelect1">Time Taken</label>
+                                 <select class="form-control " data-style="btn btn-link" id="exampleFormControlSelect1" name="timeTaken">
+                                    <% for(var i=1; i<=10;i++) { %>
+                                      <option value="<%= i %>"><%= i %>Hrs</option>
+                                    <% } %>
+                                 </select>
+                               </div>
+                               <div class="form-group">
+                                 <label for="exampleFormControlSelect1">Choose Location</label>
+                                 <select class="form-control " data-style="btn btn-link" id="exampleFormControlSelect1" name="city">
+                                    <% for(var i=0; i<data[1].length;i++) { %>
+                            
+                                        <option value="<%= data[1][i]._id %>"><%= data[1][i].cityName %>City</option>
+                                      
+                                    <% } %>
+                                 </select>
+                               </div>
+                               <div class="form-group">
+                                 <label for="exampleFormControlSelect1">Choose Office</label>
+                                 <select class="form-control " data-style="btn btn-link" id="exampleFormControlSelect1" name="office">
+                                    <% for(var i=0; i<data[2].length;i++) { %>
+                            
+                                        <option value="<%= data[2][i]._id %>"><%= data[2][i].address %></option>
+                                      
+                                    <% } %>
+                                 </select>
+                               </div>
+                               <div class="form-group">
+                                 <label for="exampleFormControlSelect2">Select activity Workers</label>
+                                 <select class="form-control" data-style="btn btn-link" id="exampleFormControlSelect2" name="worker">
+                                  <% for(var i=0; i<data[3].length;i++) { %>
+                            
+                                    <option value="<%= data[3][i]._id %>"><%= data[3][i].name %></option>
+                                  
+                                <% } %>
+
+                                 </select>
+                               </div>
+                           
+                             <button type="submit" class="btn btn-primary">Submit</button>
+                             <button class="btn btn-primary btn-fill" onclick='swal({ title:"Good job!", text: "Activity Added", type: "success", buttonsStyling: false, confirmButtonClass: "btn btn-success"})'>Try me!</button>
+
+                           </form>
+                           <% } else { %>
+                            <div class="jumbotron">
+                              No records
+                            </div>
+                            <% }  %>
+                     </div>
+                    
+                   </div>
+                </div>
+               
+            </div>
+        </div>
+       </div>
+  </div>
+  <%- include('../includes/end.ejs') %>
